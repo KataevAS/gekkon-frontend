@@ -23,12 +23,18 @@ export default class LikeButton extends Component {
   };
 
   render() {
-    const { numOfLikes, isLiked } = this.props;
+    const { numOfLikes, isLiked, bold } = this.props;
     const { btnIsBusy } = this.state;
     const { onChange } = this;
     return (
       <button
-        className={css(styles.likeButton, isLiked ? styles.likeButtonActive : '')}
+        className={
+          css(
+            styles.likeButton,
+            bold && styles.likeButtonBold,
+            isLiked && styles.likeButtonActive,
+          )
+        }
         type="button"
         style={
           (notAvail(numOfLikes) || btnIsBusy)
@@ -37,12 +43,24 @@ export default class LikeButton extends Component {
         }
         onClick={btnIsBusy ? null : onChange}
       >
-        <span className={css(styles.likeButtonIcon)}>
-          <svg>
-            <use xlinkHref={`${require('./images/like.svg')}#icon-like`} />
-          </svg>
-        </span>
-        <span className={css(styles.likeButtonCount)}>
+        {
+          bold
+            ? (
+              <span>
+                <svg style={{ width: 46, height: 44 }}>
+                  <use xlinkHref={`${require('./images/bold_like.svg')}#icon-like-bold`} />
+                </svg>
+              </span>
+            )
+            : (
+              <span className={css(styles.likeButtonIcon)}>
+                <svg>
+                  <use xlinkHref={`${require('./images/like.svg')}#icon-like`} />
+                </svg>
+              </span>
+            )
+        }
+        <span className={css(bold ? styles.likeButtonCountBold : styles.likeButtonCount)}>
           {
             notAvail(numOfLikes)
               ? <>&nbsp;</>
@@ -77,6 +95,13 @@ const styles = StyleSheet.create({
       },
     },
   },
+  likeButtonBold: {
+    fontFamily: ['GilroyBold', 'sans-serif'],
+    ':hover': {
+      '> span:last-child': { color: '#dde2ef' },
+      '> svg': { fill: '#dde2ef' },
+    },
+  },
 
   likeButtonCount: {
     ':hover': {
@@ -90,6 +115,7 @@ const styles = StyleSheet.create({
       fontSize: '14px',
     },
   },
+  likeButtonCountBold: { color: '#dde2ef' },
 
   likeButtonIcon: {
     '> svg': {
@@ -131,6 +157,7 @@ LikeButton.propTypes = {
   numOfLikes: PropTypes.number,
   isLiked: PropTypes.bool,
   onChange: PropTypes.func,
+  bold: PropTypes.bool,
 };
 
 LikeButton.defaultProps = {
