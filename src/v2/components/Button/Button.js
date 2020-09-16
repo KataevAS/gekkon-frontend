@@ -12,6 +12,8 @@ const Button = ({
   onClick,
   children
 }) => {
+  let styleClassDark = false;
+  let styleClassOutlined = false;
   let styleClassGrey = false;
   let styleClassFilter = false;
   let styleClassNotNormal = false;
@@ -20,6 +22,10 @@ const Button = ({
 
   if (style === 'gray') {
     styleClassGrey = true;
+  } else if (style === 'dark') {
+    styleClassDark = true;
+  } else if (style === 'outlined') {
+    styleClassOutlined = true;
   } else if (style === 'filter') {
     styleClassFilter = true;
   } else if (style !== 'normal') {
@@ -44,7 +50,9 @@ const Button = ({
       className={
         css(
           styles.btn,
+          styleClassDark && styles.btnDark,
           styleClassGrey && styles.btnGray,
+          styleClassOutlined && styles.btnOutlined,
           styleClassFilter && styles.btnFilter,
           styleClassNotNormal && styles.btnTransparent,
           sizeClassSmall && styles.btnSmall,
@@ -115,6 +123,17 @@ const styles = StyleSheet.create({
       color: '#666666',
     },
   },
+  btnOutlined: {
+    backgroundColor: 'transparent',
+    color: '#1f1f1f',
+    border: '2px solid #dde2ef',
+    padding: '0 40px',
+    transition: 'color .4s ease-out',
+    ':hover': {
+      backgroundColor: 'transparent',
+      color: '#666666',
+    },
+  },
   btnSubmit: {
     marginTop: '27px',
   },
@@ -126,6 +145,13 @@ const styles = StyleSheet.create({
     ':hover': {
       backgroundColor: '#D7D7D7',
     },
+  },
+  btnDark: {
+    backgroundColor: '#000000',
+    color: '#ffffff',
+    padding: '0 40px',
+    transition: 'backgroundColor .4s ease-out',
+    ':hover': { backgroundColor: '#1f1f1f' },
   },
   btnFilter: {
     backgroundColor: '#ffffff',
