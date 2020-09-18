@@ -1,64 +1,32 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import dayjs from 'dayjs';
-import UserPoster from '../components/UserPoster/UserPoster';
 import { StyleSheet, css } from '../aphrodite';
 import MainScreen from '../layouts/MainScreen/MainScreen';
-import { loadSpecificUser as loadSpecificUserAction } from '../redux/users/actions';
 import RoutePhotosCards from '@/v2/components/RoutePhotosCards/RoutePhotosCards';
+import InfoPageHeader from '../components/InfoPageHeader/InfoPageHeader';
 
-
-class RoutePhotos extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      currentDay: dayjs().format('YYYY-MM-DD'),
-      ascentsForCalendar: [],
-      ascentsForPie: [],
-    };
-  }
-
-  obtainUser = (userId, users) => {
-    if (!users[userId]) {
-      this.props.loadSpecificUser(userId);
-
-      return {
-        base_name: `User #${userId}`,
-      };
-    }
-
-    const user = users[userId];
-
-    return {
-      ...user,
-      base_name: user.name ? user.name : (user.login ? user.login : `User #${user.id}`),
-    };
-  };
-
-  render() {
-    const { match, users } = this.props;
-
-    return (
-      <MainScreen
-        header={
-          <UserPoster
-            user={this.obtainUser(match.params.user_id, users)}
-          />
+const RoutePhotos = ({ match, sectors, spots }) => (
+  <MainScreen
+    header={
+      <InfoPageHeader
+        title={
+          `${sectors[match.params.sector_id].name} скалодрома ${spots[match.params.id].name}`
         }
-      >
-        <div style={{width: '100%'}}>
-          <div className={css(style.content)}>
-            <RoutePhotosCards />
-          </div>
-        </div>
-      </MainScreen>
-    );
-  }
-}
+      />
+    }
+  >
+    <div className={css(style.container)}>
+      <div className={css(style.content)}>
+        <RoutePhotosCards />
+      </div>
+    </div>
+  </MainScreen>
+);
 
 const style = StyleSheet.create({
+  container: { width: '100%' },
   content: {
     flex: 1,
     maxWidth: '1600px',
@@ -69,12 +37,15 @@ const style = StyleSheet.create({
   },
 });
 
+RoutePhotos.propTypes = {
+  match: PropTypes.object,
+  spots: PropTypes.object,
+  sectors: PropTypes.object,
+};
+
 const mapStateToProps = state => ({
-  users: state.usersStoreV2.store,
+  spots: state.spotsStore.spots,
+  sectors: state.sectorsStore.sectors,
 });
 
-const mapDispatchToProps = dispatch => ({
-  loadSpecificUser: userId => dispatch(loadSpecificUserAction(userId)),
-});
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RoutePhotos));
+export default withRouter(connect(mapStateToProps)(RoutePhotos));
