@@ -29,13 +29,38 @@ class RoutePhotoCard extends Component {
       overflow: 'hidden',
       position: 'relative',
     },
+    routePhotoCard: {
+      width: '100%',
+      height: '100%',
+      minHeight: '450px',
+      padding: '24px',
+      paddingBottom: '22px',
+      boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.08)',
+      transition: 'box-shadow .4s ease-out',
+      display: 'flex',
+      flexDirection: 'column',
+      textDecoration: 'none',
+      boxSizing: 'border-box',
+      outline: 'none',
+      backgroundColor: '#FFFFFF',
+      cursor: 'pointer',
+    },
+    routePhotoCardSelected: { boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.5)' },
   });
 
   render() {
-    const { photo } = this.props;
+    const { photo, onClick } = this.props;
     const { imageIsLoading } = this.state;
     return (
-      <a className="route_photo-card">
+      <a
+        className={
+          css(
+            this.style.routePhotoCard,
+            this.props.selected && this.style.routePhotoCardSelected,
+          )
+        }
+        onClick={() => onClick(photo.id)}
+      >
         <article className="route-card__inner">
           <div className={css(this.style.imageContainer)}>
             <div className="route-card__image-inner">
@@ -59,6 +84,8 @@ class RoutePhotoCard extends Component {
 
 RoutePhotoCard.propTypes = {
   photo: PropTypes.object.isRequired,
+  onClick: PropTypes.func,
+  selected: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({

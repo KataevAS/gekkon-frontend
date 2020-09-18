@@ -5,7 +5,7 @@ import './RouteCardTable.css';
 import RoutePhotoCard from './RoutePhotoCard';
 
 
-const RoutePhotosCardsLayout = ({ photos }) => (
+const RoutePhotosCardsLayout = ({ photos, onClick, selectedIds }) => (
   <div className="content__inner" onClick={(e) => { e.stopPropagation(); }}>
     {
       R.map(
@@ -18,7 +18,11 @@ const RoutePhotosCardsLayout = ({ photos }) => (
             style={{ outline: 'none' }}
           >
             <div className="content__route-card">
-              <RoutePhotoCard photo={photo} />
+              <RoutePhotoCard
+                photo={photo}
+                onClick={onClick}
+                selected={R.contains(photo.id, selectedIds)}
+              />
             </div>
           </div>
         ),
@@ -29,6 +33,8 @@ const RoutePhotosCardsLayout = ({ photos }) => (
 
 RoutePhotosCardsLayout.propTypes = {
   photos: PropTypes.array.isRequired,
+  onClick: PropTypes.func,
+  selectedIds: PropTypes.array,
 };
 
 export default RoutePhotosCardsLayout;
