@@ -12,6 +12,10 @@ const routePhotosReducer = (
       ...state,
       ...R.reduce((l, u) => ({ ...l, [u.id]: u }), {})(action.route_photos),
     };
+  case acts.REMOVE_PHOTO_SUCCESS:
+    return R.dissoc(action.photoId, state);
+  case acts.REMOVE_PHOTOS_SUCCESS:
+    return R.omit(action.photoIds, state);
   default:
     return state;
   }
