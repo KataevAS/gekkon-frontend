@@ -133,7 +133,10 @@ export default class DatePicker extends Component {
 
   render() {
     return (
-      <div className="modal__table-item-calendar">
+      <div
+        className="modal__table-item-calendar"
+        style={this.props.left && { left: this.props.left }}
+      >
         <div className="calendar calendar_left_v2">
           <div className="calendar__header" />
           <div className="calendar__content">
@@ -209,6 +212,7 @@ DatePicker.propTypes = {
   date: PropTypes.string,
   hide: PropTypes.func,
   onSelect: PropTypes.func.isRequired,
+  left: PropTypes.string,
 };
 
 DatePicker.defaultProps = {

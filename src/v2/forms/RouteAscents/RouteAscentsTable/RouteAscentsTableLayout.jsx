@@ -53,32 +53,37 @@ const RouteAscentsTableLayout = ({
                         tabIndex={0}
                         style={{
                           width: '45%',
-                          position: 'absolute',
                           cursor: 'pointer',
                           outline: 'none',
+                          whiteSpace: 'nowrap',
                         }}
                         onClick={() => {
                           onDateClicked && onDateClicked(ascent.id);
                         }}
                       >
                         {ascent.accomplished_at}
+
                         {
                           dateChangingAscentId === ascent.id && (
-                            <Calendar
-                              date={ascent.accomplished_at}
-                              onSelect={
-                                (newDate) => {
-                                  onDateSelected && onDateSelected(
-                                    ascent.id,
-                                    newDate ? newDate : null,
-                                  );
+                            <div style={{ position: 'relative' }}>
+                              <Calendar
+                                left="-80px"
+                                date={ascent.accomplished_at}
+                                onSelect={
+                                  (newDate) => {
+                                    onDateSelected && onDateSelected(
+                                      ascent.id,
+                                      newDate ? newDate : null,
+                                    );
+                                  }
                                 }
-                              }
-                            />
+                              />
+                            </div>
                           )
                         }
+
                       </td>
-                      <td tabIndex={0} style={{ paddingLeft: '45%', outline: 'none' }}>
+                      <td tabIndex={0} style={{ outline: 'none' }}>
                         {
                           ascent.count > 1 && `×${ascent.count}`
                         }
@@ -120,6 +125,7 @@ const style = StyleSheet.create({
   table: {
     width: '100%',
     borderSpacing: 0,
+    tableLayout: 'fixed',
 
     '> tbody': {
       '> tr': {
