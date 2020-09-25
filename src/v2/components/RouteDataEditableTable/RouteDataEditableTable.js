@@ -11,7 +11,8 @@ import ComboBoxPerson from '@/v1/components/ComboBoxPerson/ComboBoxPerson';
 import RouteColorPicker from '@/v1/components/RouteColorPicker/RouteColorPicker';
 import DatePicker from '@/v1/components/DatePicker/DatePicker';
 import RouteContext from '@/v1/contexts/RouteContext';
-import './RouteDataEditableTable.css';
+import { css } from '@/v2/aphrodite';
+import styles from './styles';
 
 class RouteDataEditableTable extends Component {
   constructor(props) {
@@ -47,26 +48,33 @@ class RouteDataEditableTable extends Component {
                 kindId = R.find(R.propEq('title', route.kind), ROUTE_KINDS).id;
               }
               return (
-                <div className="route-data-table">
-                  <div className="route-data-table-row">
-                    <div className="route-data-table-item route-data-table-item_header">
+                <div>
+                  <div className={css(styles.routeDataTableRow)}>
+                    <div
+                      className={
+                        css(
+                          styles.routeDataTableItem,
+                          styles.routeDataTableItemHeader,
+                        )
+                      }
+                    >
                       Сложность:
                     </div>
-                    <div className="route-data-table__table-item route-data-table__table-item-right">
-                      <div className="route-data-table__category-track-wrap">
+                    <div className={css(styles.routeDataTableTableItemRight)}>
+                      <div className={css(styles.routeDataTableCategoryTrackWrap)}>
                         <div
-                          className="route-data-table__category-track-info"
+                          className={css(styles.routeDataTableCategoryTrackInfo)}
                           role="button"
                           tabIndex={0}
-                          style={{outline: 'none'}}
-                          onClick={() => this.setState({showSlider: !showSlider})}
+                          style={{ outline: 'none' }}
+                          onClick={() => this.setState({ showSlider: !showSlider })}
                         >
-                          <div className="route-data-table__category-track">
+                          <div className={css(styles.routeDataTableCategoryTrack)}>
                             {route.category}
                           </div>
                           <div
-                            className="route-data-table__category-track-color"
-                            style={{backgroundColor: getCategoryColor(route.category)}}
+                            className={css(styles.routeDataTableCategoryTrackColor)}
+                            style={{ backgroundColor: getCategoryColor(route.category) }}
                           />
                         </div>
                         {
@@ -74,7 +82,7 @@ class RouteDataEditableTable extends Component {
                             ? (
                               <CategorySlider
                                 category={route.category}
-                                hide={() => this.setState({showSlider: false})}
+                                hide={() => this.setState({ showSlider: false })}
                                 changeCategory={
                                   category => onRouteParamChange(category, 'category')
                                 }
@@ -85,11 +93,18 @@ class RouteDataEditableTable extends Component {
                       </div>
                     </div>
                   </div>
-                  <div className="route-data-table-row">
-                    <div className="route-data-table-item route-data-table-item_header">
+                  <div className={css(styles.routeDataTableRow)}>
+                    <div
+                      className={
+                        css(
+                          styles.routeDataTableItem,
+                          styles.routeDataTableItemHeader,
+                        )
+                      }
+                    >
                       Цвет зацепов:
                     </div>
-                    <div className="route-data-table-item">
+                    <div className={css(styles.routeDataTableItem)}>
                       <RouteColorPicker
                         editable
                         routeMarkColors={routeMarkColors}
@@ -99,11 +114,18 @@ class RouteDataEditableTable extends Component {
                       />
                     </div>
                   </div>
-                  <div className="route-data-table-row">
-                    <div className="route-data-table-item route-data-table-item_header">
+                  <div className={css(styles.routeDataTableRow)}>
+                    <div
+                      className={
+                        css(
+                          styles.routeDataTableItem,
+                          styles.routeDataTableItemHeader,
+                        )
+                      }
+                    >
                       Цвет маркировки:
                     </div>
-                    <div className="route-data-table-item">
+                    <div className={css(styles.routeDataTableItem)}>
                       <RouteColorPicker
                         editable
                         routeMarkColors={routeMarkColors}
@@ -114,15 +136,22 @@ class RouteDataEditableTable extends Component {
                     </div>
                   </div>
                   {
-                    sector && <div className="route-data-table-row">
-                      <div className="route-data-table-item route-data-table-item_header">
+                    sector && <div className={css(styles.routeDataTableRow)}>
+                      <div
+                        className={
+                          css(
+                            styles.routeDataTableItem,
+                            styles.routeDataTableItemHeader,
+                          )
+                        }
+                      >
                         Тип:
                       </div>
-                      <div className="route-data-table-item">
+                      <div className={css(styles.routeDataTableItem)}>
                         {
                           sector.kind === 'mixed'
                             ? (
-                              <div className="modal__field-select">
+                              <div>
                                 <ComboBox
                                   onChange={
                                     id => onRouteParamChange(
@@ -147,12 +176,19 @@ class RouteDataEditableTable extends Component {
                       </div>
                     </div>
                   }
-                  <div className="route-data-table-row">
-                    <div className="route-data-table-item route-data-table-item_header">
+                  <div className={css(styles.routeDataTableRow)}>
+                    <div
+                      className={
+                        css(
+                          styles.routeDataTableItem,
+                          styles.routeDataTableItemHeader,
+                        )
+                      }
+                    >
                       Дата накрутки:
                     </div>
-                    <div className="modal__table-item modal__table-item-right">
-                      <div className="modal__field-select">
+                    <div className={css(styles.modalTableItem, styles.modalTableItemRight)}>
+                      <div>
                         <DatePicker
                           date={route.installed_at}
                           size="small"
@@ -164,12 +200,19 @@ class RouteDataEditableTable extends Component {
                       </div>
                     </div>
                   </div>
-                  <div className="route-data-table-row">
-                    <div className="route-data-table-item route-data-table-item_header">
+                  <div className={css(styles.routeDataTableRow)}>
+                    <div
+                      className={
+                        css(
+                          styles.routeDataTableItem,
+                          styles.routeDataTableItemHeader,
+                        )
+                      }
+                    >
                       Дата cкрутки:
                     </div>
-                    <div className="modal__table-item modal__table-item-right">
-                      <div className="modal__field-select">
+                    <div className={css(styles.modalTableItem, styles.modalTableItemRight)}>
+                      <div>
                         <DatePicker
                           date={route.installed_until}
                           size="small"
@@ -184,8 +227,15 @@ class RouteDataEditableTable extends Component {
                   {
                     (!route.data.personal)
                       ? (
-                        <div className="route-data-table-row">
-                          <div className="route-data-table-item route-data-table-item_header">
+                        <div className={css(styles.routeDataTableRow)}>
+                          <div
+                            className={
+                              css(
+                                styles.routeDataTableItem,
+                                styles.routeDataTableItemHeader,
+                              )
+                            }
+                          >
                             Накрутчик:
                           </div>
                           <ComboBoxPerson
