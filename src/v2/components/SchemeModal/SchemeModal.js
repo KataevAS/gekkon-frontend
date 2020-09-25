@@ -7,7 +7,7 @@ import * as R from 'ramda';
 import Scheme from '../Scheme/Scheme';
 import BackButton from '../BackButton/BackButton';
 import { StyleSheet, css } from '../../aphrodite';
-import { DEFAULT_FILTERS } from '@/v1/Constants/DefaultFilters';
+import { DEFAULT_FILTERS } from '@/v1/Constants/filters';
 import { BACKEND_DATE_FORMAT } from '@/v1/Constants/Date';
 import { ApiUrl } from '@/v1/Environ';
 import toastHttpError from '@/v2/utils/toastHttpError';

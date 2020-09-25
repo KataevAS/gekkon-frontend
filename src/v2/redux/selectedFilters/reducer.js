@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import { acts } from './actions';
-import { DEFAULT_FILTERS } from '@/v1/Constants/DefaultFilters';
+import { DEFAULT_FILTERS } from '@/v1/Constants/filters';
 
 const selectedFiltersReducer = (
   state = {},

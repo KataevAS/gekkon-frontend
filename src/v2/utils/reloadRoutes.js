@@ -7,7 +7,7 @@ import getFilters from '@/v1/utils/getFilters';
 import getPage from '@/v1/utils/getPage';
 import { BACKEND_DATE_FORMAT } from '@/v1/Constants/Date';
 import { CARDS_PER_PAGE } from '@/v1/Constants/RouteCardTable';
-import { RESULT_FILTERS } from '@/v1/Constants/ResultFilters';
+import { RESULT_FILTERS } from '@/v1/Constants/filters';
 
 const reloadRoutes = (spotId, sectorId) => (
   (dispatch, getState) => {

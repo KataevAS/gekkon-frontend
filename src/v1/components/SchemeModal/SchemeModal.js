@@ -7,7 +7,7 @@ import * as R from 'ramda';
 import Scheme from '../Scheme/Scheme';
 import BackButton from '../BackButton/BackButton';
 import './SchemeModal.css';
-import { DEFAULT_FILTERS } from '../../Constants/DefaultFilters';
+import { DEFAULT_FILTERS } from '../../Constants/filters';
 import { BACKEND_DATE_FORMAT } from '../../Constants/Date';
 import { ApiUrl } from '../../Environ';
 import toastHttpError from '@/v2/utils/toastHttpError';

@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { DEFAULT_FILTERS } from '../Constants/DefaultFilters';
+import { DEFAULT_FILTERS } from '../Constants/filters';
 import prepareFilters from '@/v1/utils/prepareFilters';
 
 const getFilters = (selectedFilters, spotId, sectorId) => {

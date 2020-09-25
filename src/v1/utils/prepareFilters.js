@@ -1,6 +1,5 @@
 import * as R from 'ramda';
-import { DEFAULT_FILTERS } from '@/v1/Constants/DefaultFilters';
-import { RESULT_FILTERS } from '@/v1/Constants/ResultFilters';
+import { DEFAULT_FILTERS, RESULT_FILTERS } from '@/v1/Constants/filters';
 
 const filtersLookUp = {
   personal: 'Авторские трассы',

@@ -8,7 +8,7 @@ import getFilters from './getFilters';
 import getPage from './getPage';
 import { BACKEND_DATE_FORMAT } from '../Constants/Date';
 import { CARDS_PER_PAGE } from '../Constants/RouteCardTable';
-import { RESULT_FILTERS } from '@/v1/Constants/ResultFilters';
+import { RESULT_FILTERS } from '@/v1/Constants/filters';
 
 export const reloadRoutes = (spotId, sectorId) => (
   (dispatch, getState) => {
