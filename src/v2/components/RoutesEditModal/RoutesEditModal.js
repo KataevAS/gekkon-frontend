@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as R from 'ramda';
 import Button from '@/v1/components/Button/Button';
-import RouteDataEditableTable from '@/v1/components/RouteDataEditableTable/RouteDataEditableTable';
+import RouteDataEditableTable from '@/v2/components/RouteDataEditableTable/RouteDataEditableTable';
 import RouteEditor from '../RouteEditor/RouteEditor';
 import CloseButton from '../CloseButton/CloseButton';
 import ButtonHandler from '@/v1/components/ButtonHandler/ButtonHandler';
