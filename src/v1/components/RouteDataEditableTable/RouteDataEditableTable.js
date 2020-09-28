@@ -8,7 +8,7 @@ import { getCategoryColor } from '../../Constants/Categories';
 import ComboBox from '../ComboBox/ComboBox';
 import { ROUTE_KINDS } from '../../Constants/Route';
 import ComboBoxPerson from '../ComboBoxPerson/ComboBoxPerson';
-import RouteColorPicker from '../RouteColorPicker/RouteColorPicker';
+import RouteColorPicker from '@/v2/components/RouteColorPicker/RouteColorPicker';
 import DatePicker from '../DatePicker/DatePicker';
 import RouteContext from '../../contexts/RouteContext';
 import './RouteDataEditableTable.css';

@@ -5,7 +5,7 @@ import * as R from 'ramda';
 import { getCategoryColor } from '../../Constants/Categories';
 import { GetUserName } from '../../Constants/User';
 import { ROUTE_KINDS } from '../../Constants/Route';
-import RouteColorPicker from '../RouteColorPicker/RouteColorPicker';
+import RouteColorPicker from '@/v2/components/RouteColorPicker/RouteColorPicker';
 import './RouteDataTable.css';
 
 const RouteDataTable = ({

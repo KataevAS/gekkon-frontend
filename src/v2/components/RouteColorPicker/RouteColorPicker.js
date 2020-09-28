@@ -27,6 +27,11 @@ export default class RouteColorPicker extends Component {
       }
     };
 
+    removeColor = () => {
+      const { onSelect } = this.props;
+      onSelect('');
+    };
+
     render() {
       const {
         route, fieldName, editable, routeMarkColors,
@@ -99,6 +104,15 @@ export default class RouteColorPicker extends Component {
                       </li>
                     ), routeMarkColors)}
                   </div>
+
+                  <button
+                    type="button"
+                    onClick={this.removeColor}
+                    // style={{ outline: 'none' }}
+                    className={css(styles.markColorPickerButton)}
+                  >
+                    Сбросить цвет
+                  </button>
                 </div>
               )
               : ''
@@ -142,6 +156,36 @@ const styles = StyleSheet.create({
     fontSize: '16px',
     fontFamily: ['GilroyRegular', 'sans-serif'],
     paddingLeft: '20px',
+  },
+  markColorPickerButton: {
+    color: '#C2C3C8',
+    fontSize: '14px',
+    fontFamily: ['GilroyRegular', 'sans-serif'],
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: '10px',
+    paddingBottom: '10px',
+    cursor: 'pointer',
+    backgroundColor: 'transparent',
+    border: 'none',
+    transition: 'background-color .3s ease-out, color .3s ease-out',
+    position: 'relative',
+    outline: 'none',
+    ':after': {
+      position: 'absolute',
+      content: '\'\'',
+      left: 0,
+      right: 0,
+      top: 0,
+      height: '1px',
+      backgroundColor: '#F1F2F6',
+    },
+    ':hover': {
+      backgroundColor: '#F3F3F3',
+      color: '#6F6F6F',
+    },
   },
 });
 
