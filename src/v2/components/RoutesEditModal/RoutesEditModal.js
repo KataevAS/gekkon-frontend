@@ -295,16 +295,13 @@ class RoutesEditModal extends Component {
   };
 
   onRouteParamChange = (value, paramName) => {
-    const { route } = this.state;
-    const newRoute = R.clone(route);
-    newRoute[paramName] = value;
     if (paramName === 'author') {
-      newRoute.author_id = value.id;
+      this.setState(state => ({ route: { ...state.route, author_id: value.id } }));
     }
     if (paramName === 'photo' && value === null) {
-      newRoute.photoFile = null;
+      this.setState(state => ({ route: { ...state.route, photoFile: null } }));
     }
-    this.setState({ route: newRoute });
+    this.setState(state => ({ route: { ...state.route, [paramName]: value } }));
   };
 
   onFileRead = () => {

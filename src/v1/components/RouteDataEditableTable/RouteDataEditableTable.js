@@ -28,8 +28,14 @@ class RouteDataEditableTable extends Component {
     };
 
     onMarksColorSelect = (marksColor) => {
-      const { onRouteParamChange } = this.props;
+      const { onRouteParamChange, spots, match } = this.props;
+      const spotId = match.params.id;
+      const spot = spots[spotId];
+      const { markColorToCategory } = spot.data;
       onRouteParamChange(marksColor, 'marks_color');
+      if (markColorToCategory && markColorToCategory[marksColor.id]) {
+        onRouteParamChange(markColorToCategory[marksColor.id], 'category');
+      }
     };
 
     render() {
@@ -66,7 +72,7 @@ class RouteDataEditableTable extends Component {
                           </div>
                           <div
                             className="route-data-table__category-track-color"
-                            style={{backgroundColor: getCategoryColor(route.category)}}
+                            style={{ backgroundColor: getCategoryColor(route.category) }}
                           />
                         </div>
                         {
@@ -208,6 +214,8 @@ class RouteDataEditableTable extends Component {
 
 RouteDataEditableTable.propTypes = {
   sectors: PropTypes.object.isRequired,
+  spots: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
   users: PropTypes.array.isRequired,
   onRouteParamChange: PropTypes.func.isRequired,
   routeMarkColors: PropTypes.array.isRequired,
@@ -215,6 +223,7 @@ RouteDataEditableTable.propTypes = {
 
 const mapStateToProps = state => ({
   sectors: state.sectorsStore.sectors,
+  spots: state.spotsStore.spots,
 });
 
 export default withRouter(connect(mapStateToProps)(RouteDataEditableTable));
