@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import dayjs from 'dayjs';
 import { CATEGORIES } from '../../v1/Constants/Categories';
-import { DEFAULT_FILTERS, PERIOD_FILTERS } from '../../v1/Constants/filters';
+import { DEFAULT_FILTERS, PERIOD_FILTERS, VALID_FILTERS } from '../../v1/Constants/filters';
 
 const isBoolean = v => (typeof (v) === 'boolean');
 const isCategory = c => (R.contains(c, CATEGORIES));
@@ -30,7 +30,7 @@ const isValidFilter = (filterName, filterValue) => {
 const mapIndexed = R.addIndex(R.map);
 
 const validateSectorFilters = (sectorFilters) => {
-  const validFilterNames = R.intersection(R.keys(DEFAULT_FILTERS), R.keys(sectorFilters));
+  const validFilterNames = R.filter(f => R.contains(f, VALID_FILTERS), R.keys(sectorFilters));
   return mapIndexed(
     (filter, index) => {
       if (isValidFilter(validFilterNames[index], filter)) {

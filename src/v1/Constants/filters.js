@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 import { CATEGORIES } from './Categories';
 
 export const PERSONAL_DEFAULT = false;
@@ -20,6 +21,8 @@ export const DEFAULT_FILTERS = {
   outdated: OUTDATED_DEFAULT,
   liked: LIKED_DEFAULT,
 };
+
+export const VALID_FILTERS = R.keys(DEFAULT_FILTERS);
 
 export const PERIOD_FILTERS = [
   { id: 0, text: 'Все время', clickable: true },
