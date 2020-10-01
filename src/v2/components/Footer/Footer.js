@@ -12,7 +12,7 @@ import {
 import { notReady, notExist } from '@/v1/utils';
 
 import './Footer.css';
-import { closeUserSession } from '@/v2/utils/auth';
+import { closeUserSession as closeUserSessionAction } from '@/v2/utils/auth';
 
 
 class Footer extends React.PureComponent {
@@ -64,7 +64,7 @@ class Footer extends React.PureComponent {
                           : (
                             <li className="footer__list-item">
                               <a
-                                onClick={closeUserSession}
+                                onClick={this.props.closeUserSession}
                                 role="link"
                                 tabIndex={0}
                                 className="footer__list-link"
@@ -145,10 +145,15 @@ class Footer extends React.PureComponent {
 
 Footer.propTypes = {
   user: PropTypes.object,
+  closeUserSession: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
   user: currentUser(state),
 });
 
-export default connect(mapStateToProps)(withRouter(Footer));
+const mapDispatchToProps = dispatch => (
+  { closeUserSession: () => dispatch(closeUserSessionAction()) }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Footer));

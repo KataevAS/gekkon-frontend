@@ -9,7 +9,7 @@ import Avatar from '@/v1/components/Avatar/Avatar';
 import { GetUserName, USER_ITEMS_DATA, GUEST_ITEMS_DATA } from '@/v1/Constants/User';
 
 import { StyleSheet, css } from '../../aphrodite';
-import { closeUserSession } from '../../utils/auth';
+import { closeUserSession as closeUserSessionAction } from '../../utils/auth';
 
 
 class UserIcon extends React.PureComponent {
@@ -36,7 +36,7 @@ class UserIcon extends React.PureComponent {
 
     if (id === 2) {
       if (user) {
-        closeUserSession();
+        this.props.closeUserSession();
       } else {
         this.props.history.push('#signin');
       }
@@ -123,4 +123,8 @@ const mapStateToProps = state => ({
   user: currentUser(state),
 });
 
-export default connect(mapStateToProps)(withRouter(UserIcon));
+const mapDispatchToProps = dispatch => (
+  { closeUserSession: () => dispatch(closeUserSessionAction()) }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UserIcon));

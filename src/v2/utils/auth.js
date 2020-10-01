@@ -1,8 +1,8 @@
 import bcrypt from 'bcryptjs';
+import localForage from 'localforage';
 import * as R from 'ramda';
 import Api from '@/v2/utils/Api';
 import toastHttpError from '@/v2/utils/toastHttpError';
-
 
 export const createUserSession = (
   loginCredential, // TODO: check structure: should be {login:...} or {email:...}
@@ -59,17 +59,21 @@ export const createUserSession = (
   );
 };
 
-export const closeUserSession = () => {
-  Api.patch(
-    '/v1/user_sessions/actions/log_out',
-    null,
-    {
-      success() {
-        window.location.reload(true);
+export const closeUserSession = () => (
+  () => {
+    Api.patch(
+      '/v1/user_sessions/actions/log_out',
+      null,
+      {
+        success() {
+          localForage.clear(() => {
+            window.location.reload(true);
+          });
+        },
+        failed() {
+          window.location.reload(true);
+        },
       },
-      failed() {
-        window.location.reload(true);
-      },
-    },
-  );
-};
+    );
+  }
+);
