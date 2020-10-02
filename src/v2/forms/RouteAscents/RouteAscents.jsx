@@ -15,6 +15,8 @@ import {
 import reloadRoutesAction from '@/v2/utils/reloadRoutes';
 import RouteAscentsTableContext from './contexts/RouteAscentsTableContext';
 import isHtmlElChild from '@/v2/utils/isHtmlElChild';
+import getViewMode from '@/v1/utils/getViewMode';
+import getFilters from '../../../v1/utils/getFilters';
 
 const SAVE_REQUEST_DELAY = 3000;
 
@@ -23,10 +25,30 @@ class RouteAscents extends Component {
     super(props);
 
     const ascent = this.getAscent();
+
+    const spotId = this.getSpotId();
+    const sectorId = this.getSectorId();
+    const { sectors, selectedViewModes, selectedFilters, routes } = this.props;
+    const route = routes[this.getRouteId()];
+    const viewMode = getViewMode(
+      sectors,
+      selectedViewModes,
+      spotId,
+      sectorId,
+    );
+    let date;
+    if (viewMode === 'scheme') {
+      const filters = getFilters(selectedFilters, spotId, sectorId);
+      date = filters.date && moment(filters.date).format('YYYY-MM-DD');
+    } else if (route.installed_until && moment(route.installed_until) < moment()) {
+      date = route.installed_until && moment(route.installed_until).format('YYYY-MM-DD');
+    }
+
     this.state = {
       details: ascent,
       ascent,
       mergeLastRow: true,
+      newRowDate: date,
     };
     this.timerId = null;
     this.lastTableRowRef = null;
@@ -145,13 +167,13 @@ class RouteAscents extends Component {
   );
 
   prepareAscentsHistory = (ascents) => {
-    const { ascent } = this.state;
     let date;
-    if (ascent && ascent.history && ascent.history.length > 0) {
-      date = R.last(ascent.history).accomplished_at;
+    if (this.state.newRowDate) {
+      date = this.state.newRowDate;
     } else {
       date = moment().format('YYYY-MM-DD');
     }
+    this.setState({ newRowDate: date });
     return R.flatten(R.map(
       a => (
         R.repeat(
@@ -281,12 +303,18 @@ RouteAscents.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   reloadRoutes: PropTypes.func.isRequired,
+  sectors: PropTypes.object,
+  selectedViewModes: PropTypes.object,
+  selectedFilters: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
   user: currentUser(state),
   formErrors: {},
   routes: state.routesStoreV2.routes,
+  selectedViewModes: state.selectedViewModes,
+  sectors: state.sectorsStore.sectors,
+  selectedFilters: state.selectedFilters,
 });
 
 const mapDispatchToProps = dispatch => ({
