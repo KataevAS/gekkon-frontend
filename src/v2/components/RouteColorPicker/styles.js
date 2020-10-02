@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
       cursor: 'pointer',
     },
   },
+  comboBoxDropdownItemSelected: { backgroundColor: '#f5f5f5' },
   comboBoxDropdownItemPadding10: { padding: '10px' },
 });
 
